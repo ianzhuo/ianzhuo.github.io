@@ -25,6 +25,7 @@
       grist.onRecord(function(record) {
       const tokenInfo = await grist.docApi.getAccessToken({readOnly: true});
       console.log(tokenInfo.baseUrl)
+      record[template_url]=tokenInfo.baseUrl;
 
       // let record = {
       //               "id": 99,
