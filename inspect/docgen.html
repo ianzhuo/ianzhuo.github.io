@@ -22,7 +22,13 @@
       }
 
       grist.ready();
-    grist.onRecord(function(record) {
+      grist.onRecord(function(record) {
+      const tokenInfo = await grist.docApi.getAccessToken({readOnly: true});
+      const img = document.getElementById('the_image');
+      const id = record.AttachmentsID[0];  // get an id of an attachment - there could be several
+                                    // in a cell, for this example we just take the first.
+      const src = `${tokenInfo.baseUrl}/attachments/${id}/download?auth=${tokenInfo.token}`;
+      record[template_url]=src;
       // let record = {
       //               "id": 99,
       //               "template_url":"https://docxtemplater.com/tag-example.docx",
@@ -34,7 +40,7 @@
       // delete record.id;
       let json = JSON.stringify(record, null, 2);
       document.getElementById('readout').innerHTML = json;
-    });
+      });
 
       window.generate = function generate() {
           let json = JSON.parse(document.getElementById('readout').innerHTML);
