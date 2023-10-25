@@ -17,9 +17,66 @@
   </body>
 
     <script>
+      function loadFile(url, callback) {
+      PizZipUtils.getBinaryContent(url, callback);
+      }
+
       grist.ready();
       grist.onRecord(function(record) {
-        document.getElementById('readout').innerHTML = JSON.stringify(record, null, 2);
-      });
+      // let record = {
+      //               "id": 99,
+      //               "template_url":"https://docxtemplater.com/tag-example.docx",
+      //               "first_name": "Ian",
+      //               "last_name":"Zhuo",
+      //               "phone":"0919186247",
+      //               "description":"template test"
+      //               }
+      // delete record.id;
+      let json = JSON.stringify(record, null, 2);
+      document.getElementById('readout').innerHTML = json;
+      // document.getElementById('readout').innerHTML = JSON.stringify(record, null, 2);
+    });
+
+      window.generate = function generate() {
+          let json = JSON.parse(document.getElementById('readout').innerHTML);
+
+          loadFile(
+              // "https://docxtemplater.com/tag-example.docx",
+              json.template_url,
+              function (error, content) {
+                  if (error) {
+                      throw error;
+                  }
+                  const zip = new PizZip(content);
+                  const doc = new window.docxtemplater(zip, {
+                      paragraphLoop: true,
+                      linebreaks: true,
+                  });
+
+                  // Render the document (Replace {first_name} by John, {last_name} by Doe, ...)
+                  let json = JSON.parse(document.getElementById('readout').innerHTML);
+                  doc.render(json);
+
+                  // doc.render({
+                  //     first_name: "John",
+                  //     last_name: "Doe",
+                  //     phone: "0652455478",
+                  //     description: "New Website",
+                  // });
+
+                  const blob = doc.getZip().generate({
+                      type: "blob",
+                      mimeType:
+                          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                      // compression: DEFLATE adds a compression step.
+                      // For a 50MB output document, expect 500ms additional CPU time
+                      compression: "DEFLATE",
+                  });
+                  // Output the document using Data-URI
+                  saveAs(blob, "output.docx");
+              }
+          );
+      };
+
     </script>
 </html>
