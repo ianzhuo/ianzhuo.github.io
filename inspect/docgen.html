@@ -24,9 +24,12 @@
       grist.ready();
       grist.onRecord(function(record) {
       const tokenInfo = await grist.docApi.getAccessToken({readOnly: true});
-      const id = record.AttachmentsID[0];  // get an id of an attachment - there could be several
-      const src = `${tokenInfo.baseUrl}/attachments/${id}/download?auth=${tokenInfo.token}`;
-      record[template_url]=src;
+      // const img = document.getElementById('the_image');
+      // const id = record.Photos[0];  // get an id of an attachment - there could be several
+      //                               // in a cell, for this example we just take the first.
+      // const src = `${tokenInfo.baseUrl}/attachments/${id}/download?auth=${tokenInfo.token}`;
+      // img.setAttribute('src', src);
+      record.template_url = tokenInfo.baseUrl;
       // let record = {
       //               "id": 99,
       //               "template_url":"https://docxtemplater.com/tag-example.docx",
