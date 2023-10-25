@@ -22,20 +22,20 @@
       }
 
       grist.ready();
-      grist.onRecord(function(record) {
-      // let record = {
-      //               "id": 99,
-      //               "template_url":"https://docxtemplater.com/tag-example.docx",
-      //               "first_name": "Ian",
-      //               "last_name":"Zhuo",
-      //               "phone":"0919186247",
-      //               "description":"template test"
-      //               }
-      // delete record.id;
+      let record = {
+                    "id": 99,
+                    "template_url":"https://docxtemplater.com/tag-example.docx",
+                    "first_name": "Ian",
+                    "last_name":"Zhuo",
+                    "phone":"0919186247",
+                    "description":"template test"
+                    }
+      delete record.id;
       let json = JSON.stringify(record, null, 2);
       document.getElementById('readout').innerHTML = json;
-      // document.getElementById('readout').innerHTML = JSON.stringify(record, null, 2);
-    });
+    // grist.onRecord(function(record) {
+    //   document.getElementById('readout').innerHTML = JSON.stringify(record, null, 2);
+    // });
 
       window.generate = function generate() {
           let json = JSON.parse(document.getElementById('readout').innerHTML);
