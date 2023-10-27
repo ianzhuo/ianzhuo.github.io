@@ -72,7 +72,8 @@
                       compression: "DEFLATE",
                   });
                   // Output the document using Data-URI
-                  saveAs(blob, "output.docx");
+                  // saveAs(blob, "output.docx");
+                  saveAs(blob, json.ContractID_ContractID + "-" + json.Phase + json.Doc_Name);
               }
           );
       };
