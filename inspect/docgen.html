@@ -12,7 +12,7 @@
     <script src="https://docs.getgrist.com/grist-plugin-api.js"></script>
   </head>
   <body>
-    <pre id="readout">Waiting for data...</pre>
+    <pre id="readout">version 1.0 Waiting for data... </pre>
     <button onclick="generate()">Generate document</button>
   </body>
 
@@ -73,7 +73,7 @@
                   });
                   // Output the document using Data-URI
                   // saveAs(blob, "output.docx");
-                  saveAs(blob, json.ContractID_ContractID + "-" + json.Phase + json.Doc_Name);
+                  saveAs(blob, json.ContractID_ContractID + "-" + json.Phase + "-" + json.Doc_Name);
               }
           );
       };
