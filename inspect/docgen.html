@@ -13,7 +13,7 @@
   </head>
   <body>
     <button onclick="generate()">Generate document</button>
-    <pre id="readout">version 1.02 with angular-parser Waiting for data... </pre>
+    <pre id="readout">version 1.03 with angular-parser enabled Waiting for data... </pre>
   </body>
 
     <script>
@@ -47,9 +47,12 @@
                       throw error;
                   }
                   const zip = new PizZip(content);
+                  const expressionParser = AngularExpressionsParser;
+                  
                   const doc = new window.docxtemplater(zip, {
                       paragraphLoop: true,
                       linebreaks: true,
+                      parser: expressionParser
                   });
 
                   // Render the document (Replace {first_name} by John, {last_name} by Doe, ...)
